@@ -12,7 +12,7 @@ import java.util.*;
 @Service
 public class GitHubService {
 
-    @Value("${GITHUB_TOKEN}")
+    @Value("${github.token}")
     private String token;
 
     @Value("${github.org}")
