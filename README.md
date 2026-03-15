@@ -112,9 +112,3 @@ http://localhost:8080/api/access-report
 * Implement **GraphQL queries** for large organizations to reduce number of API calls.
 * Add **unit tests** for service and controller.
 
----
----
-
-If you want, I can **also create a quick checklist of everything you need to verify** before submitting to make sure **you don’t miss anything**. This ensures your GitHub repository is 100% submission-ready.
-
-Do you want me to make that checklist?
