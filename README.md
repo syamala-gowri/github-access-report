@@ -1,55 +1,80 @@
 GitHub Access Report Service
-Overview
 
-This Spring Boot application connects to the GitHub API and generates a report showing which users have access to which repositories in a given organization. The service aggregates contributor data and exposes it through a REST API.
+## **Overview**
 
-Tech Stack
+This Spring Boot application connects to the GitHub API and generates a **structured report** showing which users have access to which repositories in a given organization.
+It aggregates contributor data and exposes it via a **REST API endpoint**.
 
-Java
+---
 
-Spring Boot
+## **Tech Stack**
 
-Maven
+* **Java 17**
+* **Spring Boot 3**
+* **Maven**
+* **GitHub REST API**
+* **JSON** for API responses
 
-GitHub REST API
+---
 
-Authentication
+## **Authentication**
 
-Uses a GitHub Personal Access Token (PAT) for authentication.
+* Uses a **GitHub Personal Access Token (PAT)**.
+* Token is stored in `src/main/resources/application.properties`:
 
-The token is stored in src/main/resources/application.properties:
-
+```properties
 github.token=YOUR_PERSONAL_ACCESS_TOKEN
 github.org=github
+```
 
-The token is added in the Authorization header for all GitHub API requests to avoid rate-limit errors.
+* Token is included in the **Authorization header** for all API requests to avoid GitHub API rate-limit errors (5000 requests/hour instead of 60 for unauthenticated requests).
 
-How to Run
+---
 
-Clone the repository:
+## **How to Run**
 
+1. **Clone the repository:**
+
+```bash
 git clone https://github.com/YOUR_USERNAME/github-access-report.git
 cd github-access-report
+```
 
-Add your GitHub Personal Access Token in application.properties:
+2. **Add your GitHub token** to `application.properties`:
 
+```properties
 github.token=YOUR_PERSONAL_ACCESS_TOKEN
 github.org=github
+```
 
-Run the project:
+3. **Run the project:**
 
+```bash
 mvn spring-boot:run
+```
 
-The server will start on:
+4. **Server starts at:**
 
+```
 http://localhost:8080
-API Endpoint
+```
 
-GET /api/access-report
+---
 
-Returns a JSON report mapping users to the repositories they have access to.
+## **API Endpoint**
 
-Example Response
+* **GET /api/access-report**
+* Returns a JSON report mapping users to repositories they have access to.
+
+### **Example Request**
+
+```
+http://localhost:8080/api/access-report
+```
+
+### **Example Response**
+
+```json
 [
   {
     "username": "pope",
@@ -60,20 +85,36 @@ Example Response
     "repositories": ["maven-plugins"]
   }
 ]
-Design Decisions
+```
 
-Service layer separates GitHub API calls from controller logic.
+---
 
-Null checks and error handling are implemented to manage failed requests.
+## **Design Decisions**
 
-JSON output is structured as a list of objects for clarity.
+* **Service Layer** separates GitHub API calls from controller logic.
+* **Error Handling**: Null checks and `try-catch` blocks prevent crashes if API fails.
+* **Structured JSON**: Each user appears once with a list of all repositories.
+* **Scalability Consideration**: For large orgs, caching or GitHub GraphQL API can be used to reduce API calls.
 
-Only public repositories are considered.
+---
 
-Assumptions
+## **Assumptions**
 
-Contributors are treated as users with repository access.
+* Only **public repositories** are considered.
+* **Contributors** are treated as users with repository access.
+* Organization exists and contains repositories.
 
-The application assumes the organization exists and contains repositories.
+---
 
-For large organizations, GraphQL API or caching could be used to reduce API calls (optional improvement).
+## **Optional Improvements (Future)**
+
+* Sort **users and repositories alphabetically** for readability.
+* Implement **GraphQL queries** for large organizations to reduce number of API calls.
+* Add **unit tests** for service and controller.
+
+---
+---
+
+If you want, I can **also create a quick checklist of everything you need to verify** before submitting to make sure **you don’t miss anything**. This ensures your GitHub repository is 100% submission-ready.
+
+Do you want me to make that checklist?
